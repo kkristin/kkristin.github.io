@@ -829,6 +829,7 @@ transform: translateX(0.25rem);
 .contact__information {
     display: flex;
     margin-bottom: var(--mb-2);
+    margin: inherit;
 }
 
 .contact__icon {
