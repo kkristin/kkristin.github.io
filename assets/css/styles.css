@@ -76,6 +76,14 @@ body.dark-theme {
     align-items: center;
 }
 
+.site-language {
+    padding: 0 16px;
+    font-size: 12px;
+    line-height: 22px;
+    border-radius: 25px;
+    background-color: var(--input-color);
+}
+
 .change-theme {
     font-size: 1.25rem;
     color: var(--title-color);
