@@ -199,7 +199,7 @@ img {
 
 .tag {
     display: inline-block;
-    padding: 0 16px;
+    padding: 0 14px;
     height: 22px;
     font-size: 12px;
     line-height: 22px;
@@ -711,9 +711,14 @@ transform: translateX(0.25rem);
 }
 
 .portfolio__img {
-    width: 265px;
+    width: 285px;
     border-radius: 0.5rem;
     justify-self: center;
+    transition: 0.2s;
+}
+
+.portfolio__img:hover {
+    transform: scale(1.05);
 }
 
 .portfolio__title {
