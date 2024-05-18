@@ -15,6 +15,7 @@
     --input-color: hsl(var(--hue-color), 70%, 96%);
     --body-color: hsl(var(--hue-color), 60%, 99%);
     --container-color: #fff;
+    --portfolio-color: hsl(250deg 100% 97.78%);
     --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
     --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
 
@@ -62,11 +63,12 @@
 
 body.dark-theme {
     --first-color-second: hsl(var(--hue-color), 30%, 8%);
-    --title-color: hsl(var(--hue-color), 8%, 95%);
-    --text-color: hsl(var(--hue-color), 8%, 75%);
+    --title-color: hsl(0deg 0% 85.88%);
+    --text-color: hsl(250deg 1.55% 89.14%);
     --input-color: hsl(var(--hue-color), 29%, 66%);
     --body-color: hsl(var(--hue-color), 28%, 12%);
     --container-color: hsl(var(--hue-color), 29%, 16%);
+    --portfolio-color: hsl(var(--hue-color), 30%, 8%);
     --scroll-bar-color: hsl(var(--hue-color), 12%, 48%);
     --scroll-thumb-color: hsl(var(--hue-color), 12%, 36%);
 }
@@ -150,6 +152,10 @@ img {
     text-align: center;
 }
 
+.portfolio .section__subtitle, .back.container a{
+    color: var(--first-color);
+    font-size: var(--small-font-size);
+}
 .container {
     max-width: 768px;
     margin-left: var(--mb-1-5);
@@ -701,6 +707,11 @@ transform: translateX(0.25rem);
     visibility: visible;
 }
 
+.portfolio.section {
+    padding: 6rem 2rem;
+    background-color: var(--portfolio-color);
+    
+}
 
 .portfolio__container {
     overflow: initial;
@@ -710,15 +721,19 @@ transform: translateX(0.25rem);
     padding: 0 1.5rem;
 }
 
+.portfolio__content a {
+    padding: 0.5rem;
+}
+
 .portfolio__img {
     width: 285px;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem; 
     justify-self: center;
     transition: 0.2s;
 }
 
 .portfolio__img:hover {
-    transform: scale(1.05);
+    transform: scale(1.05);    
 }
 
 .portfolio__title {
@@ -756,7 +771,8 @@ transform: translateX(0.25rem);
     bottom: -2.5rem;
 }
 
-.swiper-pagination-bullet-active {
+
+.swiper-pagination-bullet, .swiper-pagination-bullet-active {
     background-color: var(--first-color);
 }
 
@@ -1198,7 +1214,7 @@ transform: translateX(0.25rem);
     }
 
     .portfolio__img {
-        width: 320px;
+        width: 500px;
     }
 
     .portfolio__content {
@@ -1216,7 +1232,7 @@ transform: translateX(0.25rem);
     .project__container {
         background-color: var(--first-color-second);
         border-radius: 1rem;
-        padding: 2rem 2.5rem 0;
+        padding: 2rem 2.5rem ;
         grid-template-columns: 1fr max-content;
         column-gap: 3rem;
     }
@@ -1295,4 +1311,23 @@ transform: translateX(0.25rem);
         grid-template-columns: repeat(2, 1fr);
     }
 
+}
+
+
+.crypho {
+        background-image: url("../img/crypho-hero.png");
+        background-color: #cccccc; /* Used if the image is unavailable */
+        height: 500px; /* You must set a specified height */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+}
+
+
+.crypho h2.section__title, .crypho span.section__subtitle {
+    color: white; 
+}
+
+.crypho h2.section__title {
+    padding-top: 140px;
 }
