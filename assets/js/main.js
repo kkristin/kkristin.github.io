@@ -94,6 +94,14 @@ modalCloses.forEach((modalClose) => {
     })
 })
 
+// Close modal when clicking outside of it
+window.addEventListener('click', (event) => {
+    modalViews.forEach((modalView) => {
+        if (event.target === modalView) {
+            modalView.classList.remove('active-modal');
+        }
+    });
+});
 
 
 let swiperPortfolio = new Swiper('.portfolio__container', {
@@ -202,3 +210,13 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+
+function copyToClipboard(event) {
+    const text = event.target.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        event.target.setAttribute("title", "Copied!");
+        setTimeout(() => {
+            event.target.setAttribute("title", "Copy text");
+        }, 1500); // Reset tooltip text after 1.5s
+    }).catch(err => console.error('Error copying text: ', err));
+}

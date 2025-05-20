@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* Laerdal Support Case Study - support-cs.html */
+:root {
+    --header-height: 3rem;
+
+    --hue-color: 250;
+
+    --first-color: hsl(var(--hue-color), 69%, 61%);
+    --first-color-second: hsl(var(--hue-color), 69%, 61%);
+    --first-color-alt: hsl(var(--hue-color), 57%, 53%) ;
+    --first-color-lighter: hsl(var(--hue-color), 92%, 85%);
+    --title-color: hsl(var(--hue-color), 8%, 15%);
+    --text-color: hsl(var(--hue-color) 0% 29.8%);
+    --text-color-light: hsl(var(--hue-color), 8%, 65%);
+    --input-color: hsl(var(--hue-color), 70%, 96%);
+    --body-color: hsl(var(--hue-color), 60%, 99%);
+    --container-color: #fff;
+    --portfolio-color: hsl(250deg 100% 97.78%);
+    --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
+    --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
+
+    
+
+    --body-font:'Poppins', sans-serif;
+    --large-font-size: 2.2rem;
+    --big-font-size: 1.28rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: 1.125rem;;
+    --small-font-size: 1rem;
+    --smaller-font-size: 0.76rem;
+
+    --font-medium: 500;
+    --font-semi-bold: 600;
+
+    --mb-0-25: 0.25rem;
+    --mb-0-5: 0.5rem;
+    --mb-0-75: 0.75rem;
+    --mb-1: 1rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+    --mb-3: 3rem;
+
+    --z-tooltip: 10;
+    --z-fixed: 100;
+    --z-modal: 1000;
+
+}
+/* General Styles */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 2rem;
+    background-color: var(--body-color);
+}
+
+/* Case study container */
+.case-study {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px;
+}
+
+/* Header */
+.case-study__header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 0;
+    
+}
+header{
+    width: 100%;
+    position: fixed;
+    padding: 0 1rem;
+    top: 0;
+    left: 0;
+    z-index: var(--z-fixed);
+    background-color: var(--body-color);
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.case-study__back {
+    text-decoration: none;
+    font-size: 18px;
+    color: #6e57e0;
+}
+
+
+/* Close Icon */
+.close-icon {
+    position: absolute;
+  display: flex;
+  align-self: flex-end;
+    font-size: 1.25rem;
+    color: var(--title-color);
+    margin-right: var(--mb-1);
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.close-icon:hover {
+    color:  black;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    color: var(--title-color);
+    font-weight: var(--font-semi-bold);
+    font-size: var(--h1-font-size);
+    margin-bottom: var(--mb-3);
+    /* text-align: center; */
+}
+
+h3 {
+    font-size: 1.25rem;
+    color: #444;
+    margin-top: 1rem;
+}
+
+/* Sections */
+section {
+    margin-bottom: 1.5rem;
+}
+
+/* Lists */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: var(--small-font-size);
+    /* background: #eee;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 5px; */
+}
