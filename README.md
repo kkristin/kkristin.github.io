@@ -1,6 +1,6 @@
 # kkristin.github.io
 
-Kristina Krivošija's portfolio. Plain, static HTML/CSS/JS, with **no build step**, no framework and no backend. This was a deliberate choice: it means there is nothing that can break between "it works on my machine" and "it works on GitHub Pages."
+Kristina's portfolio. Plain, static HTML/CSS/JS, with **no build step**, no framework and no backend. This was a deliberate choice: it means there is nothing that can break between "it works on my machine" and "it works on GitHub Pages."
 
 ## Running it locally
 
@@ -74,4 +74,3 @@ Inter (UI text) and JetBrains Mono (metadata, tags, numbers) are loaded from Goo
 ## What's a placeholder
 
 The five NJORD before/after screenshot pairs, the Laerdal hero, the Crypho before/after, and the Plant-O-Meter hero are all real images pulled from the source case-study PDFs. The portrait is cropped from the existing site's screenshot. If you get cleaner source files later (higher-res exports, a proper headshot), just swap the files in `assets/img/`; the `<img>` tags don't need to change beyond their `width`/`height` attributes.
-# kkristinadesign.github.io
