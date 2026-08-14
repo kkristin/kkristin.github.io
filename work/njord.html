@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NJORD: Rebuilding a SCADA System for Control Rooms | Kristina Krivošija</title>
+<meta name="description" content="Product design case study by Kristina Krivošija, a product designer based in Norway: redesigning a SCADA-grade operations console for a land-based aquaculture facility. Full system oversight, alarm investigation, a token-driven design system, and the industrial constraints behind every decision.">
+<link rel="canonical" href="https://kkristin.github.io/work/njord.html">
+<link rel="alternate" hreflang="en" href="https://kkristin.github.io/work/njord.html">
+<link rel="alternate" hreflang="no" href="https://kkristin.github.io/no/work/njord.html">
+<link rel="alternate" hreflang="x-default" href="https://kkristin.github.io/work/njord.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NJORD: Rebuilding a SCADA System for Control Rooms">
+<meta property="og:description" content="A redesign of a SCADA-grade operations console for land-based RAS aquaculture: situation awareness, alarm investigation, information architecture and a 33-component design system.">
+<meta property="og:url" content="https://kkristin.github.io/work/njord.html">
+<meta property="og:image" content="https://kkristin.github.io/assets/img/njord/dashboard.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NJORD: Rebuilding a SCADA System for Control Rooms">
+<meta name="twitter:image" content="https://kkristin.github.io/assets/img/njord/dashboard.jpg">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "NJORD: Rebuilding a SCADA system for Control Rooms",
+  "creator": { "@type": "Person", "name": "Kristina Krivošija" },
+  "about": "Product design case study: industrial HMI / SCADA redesign for land-based RAS aquaculture",
+  "url": "https://kkristin.github.io/work/njord.html"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Kristina Krivošija", "item": "https://kkristin.github.io/" },
+    { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://kkristin.github.io/#work" },
+    { "@type": "ListItem", "position": 3, "name": "NJORD" }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Kristina Krivošija</a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-switch" aria-label="Language">
+        <span class="lang-current" aria-current="page">EN</span>
+        <span class="sep">/</span>
+        <a href="../no/work/njord.html" hreflang="no" lang="no">NO</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark theme">
+        <span class="icon">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg>
+        </span>
+        <span class="label-light">Dark</span>
+        <span class="label-dark">Light</span>
+      </button>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="cs-back" href="../index.html#work">← Selected work</a>
+      <p class="eyebrow" style="margin-top:1.4rem;">Case study <span class="dot">·</span> Industrial HMI / Operations Software</p>
+      <h1>Rebuilding a SCADA system for Control Rooms</h1>
+      <p class="lede">NJORD is the SCADA-grade system operators use to run a land-based Recirculating Aquaculture System: water chemistry, oxygenation, feeding, alarms and fish biology. The product already provided the necessary functionality; the challenge was reducing everyday friction so operators could find, understand and act on the right information faster. I started by investigating how people used NJORD and gathering direct user feedback, then redesigned the interface to remove recurring points of friction without changing the underlying process capability.</p>
+
+      <div class="cs-meta-grid">
+        <div class="m"><div class="k">Domain</div><div class="v">Land-based RAS aquaculture</div></div>
+        <div class="m"><div class="k">Surface</div><div class="v">Desktop console + companion mobile</div></div>
+        <div class="m"><div class="k">Scope</div><div class="v">27 screens · 9 process mimics</div></div>
+        <div class="m"><div class="k">Output</div><div class="v">Hi-fi React prototype · 33-component design system</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cs-layout">
+      <nav class="cs-toc" aria-label="Case study sections">
+        <ul>
+          <li><a href="#challenge">01 · Context</a></li>
+          <li><a href="#research">02 · Research</a></li>
+          <li><a href="#strategy">03 · Strategy</a></li>
+          <li><a href="#decisions">04 · Design response</a></li>
+          <li><a href="#system">05 · Design system</a></li>
+          <li><a href="#constraints">06 · Constraints</a></li>
+          <li><a href="#rejected">07 · Not built</a></li>
+          <!-- <li><a href="#performance">· Engineering performance</a></li> -->
+          <li><a href="#outcome">08 · Outcome</a></li>
+          <li><a href="#reflection">09 · Reflection</a></li>
+        </ul>
+      </nav>
+
+      <div>
+
+        <!-- 01 CONTEXT -->
+        <section class="cs-section" id="challenge">
+          <p class="eyebrow">01</p>
+          <h2>Context</h2>
+          <div class="cs-prose">
+            <p>A land-based RAS facility is a closed-loop fish factory. Water leaves a production tank carrying fish waste, passes through a drum filter, a biofilter that converts ammonia, a CO₂ stripper, a pump sump and an oxygenation stage, then returns to the tank, recirculating several times an hour. If oxygenation drops, a tank of fish can be lost in minutes. If the biofilter is disturbed, ammonia climbs over hours. None of it is optional, and a plant typically runs on one operator per shift.</p>
+            <p>NJORD is the software layer over that plant: an Ignition-based HMI/SCADA application covering process mimics, the alarm register, trend analysis, feeding control, biology registration and reporting. The redesign covers the operations web app: not the PLC layer, the historian, or the field devices.</p>
+            <p>The design challenge was narrow and hard at the same time: <strong>how do you redesign a safety-critical, information-dense industrial interface without removing the information operators depend on?</strong> And underneath that, a second constraint: the client runs facilities with different building counts, department layouts and process systems, so the redesign couldn't be built for one plant. It had to hold when the plant is shaped differently.</p>
+          </div>
+        </section>
+
+        <!-- 02 RESEARCH -->
+        <section class="cs-section" id="research">
+          <p class="eyebrow">02</p>
+          <h2>Research</h2>
+          <div class="cs-prose">
+            <p>Before redesigning anything, I ran a targeted UX survey with the client (15 respondents across operator, technician, fish-farmer, supervisor and engineering roles) and a UX review of the existing screens. The results were clear on one point first: NJORD's functional foundation was already good. Data access, the alarm system and day-to-day reliability all rated well. The problem was effort, not missing capability, so the redesign changed how the system is operated, not what it does.</p>
+            <p>The same six issues came up regardless of role, in the users' own words.</p>
+          </div>
+
+          <div class="problem-grid">
+            <div class="problem-item">
+              <p class="n">01</p>
+              <h3>Too many clicks</h3>
+              <p>Excessive steps, confirmations and delays in everyday workflows.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">02</p>
+              <h3>Difficult navigation</h3>
+              <p>Reaching a system meant walking a nested menu tree every time.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">03</p>
+              <h3>Limited overview</h3>
+              <p>Building a picture of the facility meant visiting screen after screen.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">04</p>
+              <h3>Weak trending</h3>
+              <p>Trend tooling was unstable and inflexible for real investigation.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">05</p>
+              <h3>Poor mobile usability</h3>
+              <p>Scaling and interaction on a phone worked badly in practice.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">06</p>
+              <h3>Lack of integrations</h3>
+              <p>Disconnected from surrounding systems; the same data entered twice.</p>
+            </div>
+          </div>
+
+          <figure class="cs-figure reveal">
+            <div class="compare">
+              <figure>
+                <span class="tag before">Before · legacy Fish Tank screen</span>
+                <img src="../assets/img/njord/legacy-fishtank.jpg" alt="Legacy NJORD fish tank screen, a multi-tab data card with no clear hierarchy" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">After · redesigned Fish Tank</span>
+                <img src="../assets/img/njord/fishtank.jpg" alt="Redesigned fish tank card with two hero readouts, a status row and a single Parameters drawer" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <figcaption>One concrete example of "limited overview": the fish-tank screen buried the two readouts operators actually needed inside four data tabs with no hierarchy. The redesign promotes them to hero size and collapses the tabs into one Parameters drawer.</figcaption>
+          </figure>
+
+          <p class="cs-prose" style="margin-top:1.5rem; max-width:66ch;">These six issues, not an abstract design critique, are what the rest of this case study responds to. §04 shows which decision answers which finding, and where a finding wasn't addressed at all.</p>
+
+          <p class="hypothesis-note">The survey and review didn't produce a statistically significant sample; they produced recurring patterns credible enough to prioritise against. Treat the six issues above as diagnosed pain points, not measured incidence rates.</p>
+        </section>
+
+        <!-- 03 STRATEGY -->
+        <section class="cs-section" id="strategy">
+          <p class="eyebrow">03</p>
+          <h2>Design strategy</h2>
+          <div class="cs-prose">
+            <p>This wasn't a visual refresh. The work moved through five layers, in order: situation awareness, then information architecture, then interaction design, then the design system, then implementation constraints, because a decision at any layer could be overturned by a limit discovered at the next one.</p>
+            <ul>
+              <li>Overview before detail, and recognition over recall</li>
+              <li>Abnormal conditions get visual priority: colour is spent, not decorated with</li>
+              <li>One source of truth for every number on screen</li>
+              <li>Explicit actions over "click anywhere" affordances</li>
+              <li>Design around the operator's decision, not the data the system happens to store</li>
+              <li>Configuration over hard-coded layout, so a different facility doesn't fork the product</li>
+              <li>Accessibility and performance treated as product requirements, not late passes</li>
+            </ul>
+            <p>Not every decision below traces back to a survey finding. Where the six issues didn't cover the territory, industrial-HMI standards did the deciding instead: ISA-18.2 for alarm lifecycle, ISA-101 for display hierarchy and colour discipline, WCAG 2.2 AA as the accessibility floor. Ignoring them would be malpractice. Following them without judgement would produce a screen from 1995. Most of the arguable decisions below were settled by reading the standard or by the survey, not by taste.</p>
+          </div>
+        </section>
+
+        <!-- 04 KEY DECISIONS -->
+        <section class="cs-section" id="decisions">
+          <p class="eyebrow">04</p>
+          <h2>The design response</h2>
+          <p class="lede">Six decisions carried most of the redesign's weight. Five map directly to a survey finding from §02; the other came from domain standards rather than user feedback. Each is shown as before → decision → after.</p>
+          <figure class="cs-figure reveal">
+            <div class="scope-table-wrap">
+              <table class="scope-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Survey finding</th>
+                    <th scope="col">Scope</th>
+                    <th scope="col">Design response</th>
+                    <th scope="col">Customer value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="finding">Too many clicks</td>
+                    <td><span class="scope-status addressed">Addressed</span></td>
+                    <td>Shorter workflows and direct actions</td>
+                    <td>Faster daily work</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Difficult navigation</td>
+                    <td><span class="scope-status addressed">Addressed</span></td>
+                    <td>Simplified navigation structure</td>
+                    <td>Less time spent navigating</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Limited overview</td>
+                    <td><span class="scope-status addressed">Addressed</span></td>
+                    <td>Dashboard and improved information hierarchy</td>
+                    <td>Quicker situational awareness</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Weak trending</td>
+                    <td><span class="scope-status addressed">Addressed</span></td>
+                    <td>Redesigned trend workflow and handling</td>
+                    <td>Faster investigations</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Poor mobile usability</td>
+                    <td><span class="scope-status addressed">Addressed</span></td>
+                    <td>Responsive layouts and native interactions</td>
+                    <td>Better field operations</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Duplicate work</td>
+                    <td><span class="scope-status future">Future engineering work</span></td>
+                    <td>Designed to support future integrations</td>
+                    <td>Less manual work, when implemented</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Frequent logouts</td>
+                    <td><span class="scope-status neutral">Backend / authentication</span></td>
+                    <td>Not addressed (backend responsibility)</td>
+                    <td>Transparent scope</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Loading and lag</td>
+                    <td><span class="scope-status neutral">Engineering optimisation</span></td>
+                    <td>Reduced unnecessary interactions</td>
+                    <td>Less perceived waiting</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </figure>
+          <div class="decision-block">
+            <p class="decision-num">Decision 1 <span class="finding-tag">Responds to: Limited overview</span></p>
+            <h3>The landing screen became a dashboard</h3>
+            <div class="cs-prose">
+              <p>The app used to open directly onto a system mimic that may have had nothing to do with the actual problem that shift. The redesign opens on a facility-wide overview: a KPI band against real configured limits, a severity-sorted active-alarm feed, a status-only building rollup, and a maneuver-history panel, the one part of the original screen that was already useful.</p>
+            </div>
+            <figure class="cs-figure reveal">
+              <div class="compare">
+                <figure>
+                  <span class="tag before">Before · legacy start page</span>
+                  <img src="../assets/img/njord/legacy-start.jpg" alt="Legacy NJORD start page, a grid of identical grey navigation buttons" loading="lazy" width="1440" height="900">
+                </figure>
+                <figure>
+                  <span class="tag after">After · Dashboard</span>
+                  <img src="../assets/img/njord/dashboard.jpg" alt="Redesigned NJORD dashboard with KPI band, active alarms feed and building status" loading="lazy" width="1440" height="900">
+                </figure>
+              </div>
+              <figcaption>The legacy landing screen was a directory of identical buttons. Nothing on it said whether the site was healthy. An early draft put a full clickable facility navigator here too; it came back out because two navigators is an information-architecture failure, not a convenience.</figcaption>
+            </figure>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Decision 2 <span class="finding-tag">Responds to: Difficult navigation</span></p>
+            <h3>Navigation became a map</h3>
+            <div class="cs-prose">
+              <p>The old "Navigation" item was a menu tree with no relationship to the physical plant. It's now a Site Plan: buildings as footprints, departments as zones, systems as nodes, with worst-status rolling up to department and building level. Operators already hold this layout in their heads (they walk it), so the map reuses a mental model instead of asking for a second, arbitrary one.</p>
+              <p>The important part doesn't show: the whole tree is drawn from one facility configuration structure. A site with four buildings and no hatchery produces a different map from the same code, which is what makes the product usable at the client's other facilities rather than just this one.</p>
+            </div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Decision 3 <span class="finding-tag">Responds to: Too many clicks, Weak trending</span></p>
+            <h3>Alarm → trend became one interaction</h3>
+            <div class="cs-prose">
+              <p>This was the most expensive failure to fix and the most valuable. Previously, investigating an alarm meant reading the tag, memorising it, guessing which mimic owned it, navigating the menu tree, finding the sensor, and opening the trend module by hand.</p>
+            </div>
+            <p class="mono" style="margin-top:1.5rem; font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Before: eight manual steps</p>
+            <div class="flow-chain">
+              <span class="step">Alarm annunciates</span><span class="arrow">→</span>
+              <span class="step">Read &amp; memorise tag</span><span class="arrow">→</span>
+              <span class="step">Guess the mimic</span><span class="arrow">→</span>
+              <span class="step">Navigate menu tree</span><span class="arrow">→</span>
+              <span class="step">Find the sensor</span><span class="arrow">→</span>
+              <span class="step">Open trend module</span><span class="arrow">→</span>
+              <span class="step">Add pen, set window</span>
+            </div>
+            <p class="mono" style="margin-top:1.5rem; font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">After: one explicit action</p>
+            <div class="flow-chain after">
+              <span class="step hi">Alarm row → Investigate</span><span class="arrow">→</span>
+              <span class="step hi">Trend opens, centred on the alarm moment, threshold drawn</span>
+            </div>
+            <div class="rationale-box">Every alarm now carries its measured process variable, unit and threshold, so the trend can centre itself on the alarm moment automatically. Discrete alarms with no analogue value (communication faults, drive faults) open an Event Timeline instead of an empty chart, rather than forcing a lookup that doesn't apply.</div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Decision 4 <span class="finding-tag standard">Not a survey finding — ISA-101 colour discipline</span></p>
+            <h3>Colour became a semantic system</h3>
+            <div class="cs-prose">
+              <p>Normal operation became deliberately neutral (dark grey for running, light grey for stopped), and colour was reserved entirely for abnormal conditions. This isn't an aesthetic preference; it's the High-Performance HMI grayscale doctrine, and it's why the redesigned mimics look "plainer" than the legacy screens while being faster to read at a glance.</p>
+            </div>
+            <figure class="cs-figure reveal">
+              <div class="compare">
+                <figure>
+                  <span class="tag before">Before · legacy Pump Sump</span>
+                  <img src="../assets/img/njord/legacy-pumpsump.jpg" alt="Legacy pump sump mimic with saturated green equipment and monochrome pipes" loading="lazy" width="1440" height="900">
+                </figure>
+                <figure>
+                  <span class="tag after">After · redesigned Pump Sump</span>
+                  <img src="../assets/img/njord/pumpsump.jpg" alt="Redesigned pump sump mimic with neutral equipment states and fluid-coded pipes" loading="lazy" width="1440" height="900">
+                </figure>
+              </div>
+              <figcaption>Eleven saturated-green pumps on the left spend colour on "normal." On the right, equipment state is neutral and pipes are tinted by the fluid they carry, so oxygen, process-water and drain circuits separate at a glance, leaving colour free for the one thing that's actually wrong.</figcaption>
+            </figure>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Decision 5 <span class="finding-tag">Responds to: Poor mobile usability</span></p>
+            <h3>Mobile became its own experience, not a shrunken desktop</h3>
+            <div class="cs-prose">
+              <p>A responsive desktop application stayed a responsive desktop application. The phone experience didn't: it's a separate layout built for a phone, not the desktop UI scaled down to fit one. Full-size touch targets, one task per screen, and the field tasks operators actually need out there, instead of a control-room screen shrunk until it's technically usable.</p>
+            </div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Decision 6 <span class="finding-tag standard">Not a survey finding — multi-site scalability</span></p>
+            <h3>The system became configurable</h3>
+            <div class="cs-prose">
+              <p>One facility was designed in detail (three buildings, nine departments, real tag names) but treated as an example rather than a specification. Buildings, departments and systems all come from one facility structure; system screens resolve through a registry rather than a hard-coded route list; facility-wide equipment that belongs to no single building got its own honest place on the map instead of being forced into the hierarchy.</p>
+            </div>
+            <div class="flow-chain" style="margin-top:1.5rem;">
+              <span class="step">One facility, modelled in detail</span><span class="arrow">→</span>
+              <span class="step hi">Configuration, not layout</span><span class="arrow">→</span>
+              <span class="step">A differently shaped facility</span><span class="arrow">→</span>
+              <span class="step hi">Same product architecture</span>
+            </div>
+          </div>
+
+          <details class="expand reveal">
+            <summary>Two more redesigned screens, for pattern rather than volume</summary>
+            <div class="cs-prose">
+              <p>The six decisions above repeat across every screen in the product. Two more examples, briefly:</p>
+            </div>
+            <div class="compare" style="margin-top:1.5rem;">
+              <figure>
+                <span class="tag before">Before · Alarm Statistics</span>
+                <img src="../assets/img/njord/legacy-alarmstats.jpg" alt="Legacy alarm statistics screen with three stacked tab levels and a reversed severity ramp" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">After · Alarm Statistics</span>
+                <img src="../assets/img/njord/alarmstats.jpg" alt="Redesigned alarm statistics page governed by a single time-range control" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <div class="compare" style="margin-top:1.5rem;">
+              <figure>
+                <span class="tag before">Before · Fish Welfare</span>
+                <img src="../assets/img/njord/legacy-welfare.jpg" alt="Legacy welfare data-entry form with all indicators pre-checked and no registration history" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">After · Fish Biology</span>
+                <img src="../assets/img/njord/welfare.jpg" alt="Redesigned fish biology screen with a registration register, mortality and cause of death" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <p class="cs-prose" style="margin-top:1rem; font-size:0.9rem; color:var(--muted);">Alarm Statistics collapsed three stacked tab levels into one page governed by a single time-range control, once it was clear they were one analysis at three ranges rather than three analyses. Fish Biology replaced a blank form with a register (batch, department, tank, author, progress through scoring) because the legacy screen had no memory of what had already been recorded.</p>
+          </details>
+        </section>
+
+        <!-- 05 DESIGN SYSTEM -->
+        <section class="cs-section" id="system">
+          <p class="eyebrow">05</p>
+          <h2>Design system</h2>
+          <p class="lede">33 components across 8 groups, shared between the desktop console and the mobile companion.</p>
+          <div class="cs-prose">
+            <p>The system was imported into the project before any screen work started, so tokens, type and component conventions existed as real, working files rather than a document someone had to remember. A theme is a variable remap rather than a parallel stylesheet, which is what let three themes (modern light, a dark night-shift skin, and a legacy skin for change management) stay in sync through the whole redesign.</p>
+          </div>
+          <div class="system-gallery">
+            <div class="grp"><p class="k">Core</p><p class="items">Buttons, inputs, cards, tabs, badges, tooltips</p></div>
+            <div class="grp"><p class="k">Alarms</p><p class="items">State chips, severity ramp, bulk action bar, suppression controls</p></div>
+            <div class="grp"><p class="k">Data display</p><p class="items">Trend charts, stat rows, tables, KPI tiles, distribution charts</p></div>
+            <div class="grp"><p class="k">SCADA</p><p class="items">Nodes, pumps, valves, sensor boxes, ports, coded pipes, legends</p></div>
+            <div class="grp"><p class="k">Overlays</p><p class="items">Equipment popup, parameter edit dialog, toasts, confirm dialogs</p></div>
+            <div class="grp"><p class="k">Navigation</p><p class="items">Sidebar, top bar, site plan, breadcrumb, context picker</p></div>
+            <div class="grp"><p class="k">Forms</p><p class="items">Filters, search, registration flows, role &amp; user management</p></div>
+            <div class="grp"><p class="k">Mobile</p><p class="items">Swipe row, pull-to-refresh, bottom sheet, tab bar</p></div>
+          </div>
+          <p class="body-text" style="margin-top:1.5rem; max-width:60ch;">Only the mobile-specific and desktop-specific components fork; the alarm model, severity ramp and copy rules are identical across both, which is what keeps the two surfaces from quietly disagreeing with each other.</p>
+        </section>
+
+        <!-- 06 CONSTRAINTS -->
+        <section class="cs-section" id="constraints">
+          <p class="eyebrow">06</p>
+          <h2>Designing within reality</h2>
+          <p class="lede">Three constraints that changed decisions, not just execution.</p>
+          <div class="constraint-grid">
+            <div class="constraint-card">
+              <p class="k">Platform</p>
+              <h3>Ignition / industrial SCADA</h3>
+              <p>Client-side aggregation across hundreds of tags is expensive on this platform, and anything walking the whole equipment tree on screen load risks slowing every navigation. This alone killed a feature already built. See §07.</p>
+            </div>
+            <div class="constraint-card">
+              <p class="k">Data</p>
+              <h3>What the plant can actually feed</h3>
+              <p>The system doesn't record maneuver type, welfare bands, or backup-versus-primary oxygen tracking. Engineering feedback took features off the board repeatedly rather than adding them. Every removal is documented in §07.</p>
+            </div>
+            <div class="constraint-card">
+              <p class="k">Change management</p>
+              <h3>Muscle memory in the legacy HMI</h3>
+              <p>Operators have years of trained response in the old interface. A redesign that invalidates all of it during transition is a safety hazard, not just friction, which is the direct reason a legacy visual theme exists.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 REJECTED -->
+        <section class="cs-section" id="rejected">
+          <p class="eyebrow">07</p>
+          <h2>Not built</h2>
+          <p class="lede">Not every idea survived contact with what the plant could actually support, and there are different reasons why I chose not to build specific features.</p>
+          <div class="subtract-list">
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>A per-system alarm banner</strong> on every process screen. Already built, already fixed of a routing bug, but summarising alarms per equipment meant walking the tag tree on every screen load, a cost paid forever to save a click the global annunciator already covered.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>EEMUA target-benchmarking</strong> on the Statistics page. Well grounded in the alarm-management literature, and completely unbuildable: the platform has no mechanism to set the targets it would benchmark against.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>Maneuver type classification</strong> (setpoint / state / override) in the audit log. Not derivable from the parameter model, and a wrong label in an audit trail is worse than none.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>Welfare bands and a composite welfare score.</strong> Statistically improper for ordinal indicator data, and it would have hidden the one specific bad finding the record exists to surface.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>Backup-versus-primary oxygen tracking.</strong> The plant doesn't track it. Replaced with the state that actually exists: whether the emergency oxygen valve is open or closed.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Removed</p>
+              <p><strong>Animated flow on mimic pipes.</strong> Attractive, but rejected because it would falsely draw attention, since it isn't a marker for an abnormal condition.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 08 ENGINEERING PERFORMANCE -->
+        <!-- <section class="cs-section" id="performance">
+          <p class="eyebrow">08</p>
+          <h2>Engineering performance (new-build measurements)</h2>
+          <div class="cs-prose">
+            <p>These measurements compare the new web build before and after a render-architecture fix. They do not compare the redesigned UI to the legacy NJORD in production. A particular view was reported as "slow" during review; the new build was instrumented to understand the cause before any code changes were attempted.</p>
+          </div>
+          <div class="perf-compare">
+            <div class="box before">
+              <p class="lbl">Measured on the new build, before the fix</p>
+              <div class="row"><span>Page change</span><span>1,014 ms</span></div>
+              <div class="row"><span>Select-all</span><span>2,475 ms</span></div>
+              <div class="row"><span>Whole-app load</span><span>17.5 s</span></div>
+            </div>
+            <div class="box after">
+              <p class="lbl">Measured on the same build after the render-architecture fix</p>
+              <div class="row"><span>Page change</span><span>48 ms</span></div>
+              <div class="row"><span>Select-all</span><span>33 ms</span></div>
+              <div class="row"><span>Whole-app load</span><span>2.3 s</span></div>
+            </div>
+          </div>
+          <div class="cs-prose" style="margin-top:1.5rem;">
+            <p>The obvious fix (cap the table's row count) would have done nothing, because page size was already 50 rows. The actual cause was an icon-rendering effect with no dependency array, rescanning the whole document for icons on every state change. With around 390 icons on screen, that's an O(icons²) cost. Caching each icon's SVG and keying the effect fixed the measured numbers above.</p>
+            <p>The point isn't the icons. It's that engineering and UX must work together: a well-reasoned feature can be correct and still be the wrong feature if it taxes every screen load.</p>
+          </div>
+        </section> -->
+
+        <!-- 09 OUTCOME -->
+        <section class="cs-section" id="outcome">
+          <p class="eyebrow">08</p>
+          <h2>Outcome</h2>
+          <p class="lede">What was actually delivered, kept separate from what would still need to be measured.</p>
+
+          <div class="stat-strip">
+            <div class="stat"><div class="num">27</div><div class="label">Screens redesigned</div></div>
+            <div class="stat"><div class="num">9</div><div class="label">Process mimics</div></div>
+            <div class="stat"><div class="num">33</div><div class="label">Design-system components</div></div>
+            <div class="stat"><div class="num">2</div><div class="label">Platforms, one system</div></div>
+            <div class="stat"><div class="num">1</div><div class="label">Shared product architecture</div></div>
+          </div>
+
+          <div class="cs-prose" style="margin-top:2.5rem;">
+            <p><strong>Delivered and verifiable in the build itself:</strong> count disagreement across screens is now architecturally impossible rather than merely tested for; every screen shares one shell, one table pattern, one dialog pattern; fluid colours and their legends live in one registry so they can't drift apart; facility structure, system screens and utilities are all configuration rather than hard-coded layout; a cross-theme accessibility sweep covering 1,980 text nodes across three themes came back at zero AA contrast failures after seven fixes.</p>
+          </div>
+
+          <!-- <div class="rationale-box" style="margin-top:2rem;">
+            <strong>Treated as hypotheses, not measurements:</strong> no formal usability study ran during this engagement. Figures like "eight steps collapsed to one click" for alarm investigation describe the interaction design itself and are verifiable by inspection, but improvements in detection speed, diagnosis time or operator trust are targets for future validation, not results. The full measurement plan (what would be tested, against what baseline) is part of the project record.
+          </div> -->
+
+          <!-- <details class="expand reveal" style="margin-top:1.5rem;">
+            <summary>Survey and interaction evidence (concise)</summary>
+            <div class="cs-prose">
+              <p>A follow-up survey with the client (15 respondents across operator, technician, fish-farmer, supervisor and engineering roles) supported the original diagnosis: NJORD's functional foundation was considered useful, and the problem that emerged in everyday work was effort and friction rather than missing core capability.</p>
+              <p>Interaction evidence was collected by walking representative tasks through the legacy screens and the redesign (inspection of the flows, not a controlled usability test). These task-path counts show where unnecessary steps could be removed: for example, opening a trend moved from two clicks to one; reaching a system through the menu from two clicks to one; opening the historical alarm list from four clicks to two. These counts illustrate the interaction simplifications rather than claiming measured performance gains.</p>
+              <p>Scope remained explicit: design addressed fewer clicks, simplified navigation, the dashboard, reworked trending and mobile. Items requiring engineering work (integrations, authentication/session handling and some backend performance fixes) were logged as future work. By the time of this survey, the same design pattern had been applied to 34 process screens in the project's codebase, up from the 27 screens in the initial redesign.</p>
+            </div>
+          </details> -->
+        </section>
+
+        <!-- 10 REFLECTION -->
+        <section class="cs-section" id="reflection">
+          <p class="eyebrow">09</p>
+          <h2>Reflection</h2>
+          <div class="reflection reveal">
+            <p>The strongest part of this work wasn't adding more functionality. It was deciding what the product should make visible, what it should leave out, and what needed to become structurally consistent: one alarm register instead of five places counting the same thing, one facility model instead of a screen set that only worked for one plant.</p>
+            <!-- <footer>Kristina Krivošija</footer> -->
+          </div>
+          <p class="hypothesis-note" style="margin-top:2rem;">This case study reconstructs the design process from the project's working record. Sections describing inferred context (personas, facility scale, operator headcount) are flagged as assumptions rather than findings throughout the source material. No third-party audit against ISA-18.2, ISA-101 or WCAG 2.2 has been performed on the prototype.</p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <nav class="cs-nextprev" aria-label="Other case studies">
+    <a href="../index.html#work"><p class="eyebrow">Back to</p><p class="ttl">← Selected work</p></a>
+    <a class="next" href="laerdal.html"><p class="eyebrow">Next case study</p><p class="ttl">Laerdal Support →</p></a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <div class="f-brand">Kristina Krivošija</div>
+      <div class="f-tag">Research · Product Strategy · UX/UI</div>
+      <div class="f-tag">Tønsberg, Norway</div>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="https://linkedin.com/in/kkrivosija" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="f-bottom">
+    <span>© <span id="year">2026</span> Kristina Krivošija</span>
+    <!-- <span>NJORD is a design case study; not a compliance certification.</span> -->
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

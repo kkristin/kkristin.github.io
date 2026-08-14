@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="no">
+<head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NJORD: Ombygging av et SCADA-system for kontrollrom | Kristina Krivošija</title>
+<meta name="description" content="Produktdesign case-studie av Kristina Krivošija, produktdesigner basert i Norge: ombygging av en SCADA-basert driftskonsoll for et landbasert oppdrettsanlegg. Full systemoversikt, alarmgransking, et token-drevet designsystem, og rammene bak hver beslutning.">
+<link rel="canonical" href="https://kkristin.github.io/no/work/njord.html">
+<link rel="alternate" hreflang="en" href="https://kkristin.github.io/work/njord.html">
+<link rel="alternate" hreflang="no" href="https://kkristin.github.io/no/work/njord.html">
+<link rel="alternate" hreflang="x-default" href="https://kkristin.github.io/work/njord.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NJORD: Ombygging av et SCADA-system for kontrollrom">
+<meta property="og:description" content="En ombygging av en SCADA-basert driftskonsoll for landbasert RAS-oppdrett: situasjonsforståelse, alarmgransking, informasjonsarkitektur og et designsystem med 33 komponenter.">
+<meta property="og:url" content="https://kkristin.github.io/no/work/njord.html">
+<meta property="og:image" content="https://kkristin.github.io/assets/img/njord/dashboard.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NJORD: Ombygging av et SCADA-system for kontrollrom">
+<meta name="twitter:image" content="https://kkristin.github.io/assets/img/njord/dashboard.jpg">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "NJORD: Ombygging av et SCADA-system for kontrollrom",
+  "creator": { "@type": "Person", "name": "Kristina Krivošija" },
+  "about": "Produktdesign case-studie: industrielt HMI / SCADA-ombygging for landbasert RAS-oppdrett",
+  "url": "https://kkristin.github.io/no/work/njord.html",
+  "inLanguage": "nb"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Kristina Krivošija", "item": "https://kkristin.github.io/no/" },
+    { "@type": "ListItem", "position": 2, "name": "Prosjekter", "item": "https://kkristin.github.io/no/#work" },
+    { "@type": "ListItem", "position": 3, "name": "NJORD" }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Hopp til innhold</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Kristina Krivošija</a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="../index.html#work">Prosjekter</a></li>
+        <li><a href="../index.html#about">Om meg</a></li>
+        <li><a href="../index.html#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-switch" aria-label="Språk">
+        <a href="../../work/njord.html" hreflang="en" lang="en">EN</a>
+        <span class="sep">/</span>
+        <span class="lang-current" aria-current="page">NO</span>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Bytt til mørkt tema">
+        <span class="icon">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg>
+        </span>
+        <span class="label-light">Mørk</span>
+        <span class="label-dark">Lys</span>
+      </button>
+      <button class="nav-toggle" aria-label="Vis meny" aria-expanded="false" aria-controls="main-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="cs-back" href="../index.html#work">← Utvalgte prosjekter</a>
+      <p class="eyebrow" style="margin-top:1.4rem;">Case-studie <span class="dot">·</span> Industrielt HMI / driftsprogramvare</p>
+      <h1>Ombygging av et SCADA-system for kontrollrom</h1>
+      <p class="lede">NJORD er det SCADA-baserte systemet operatører bruker til å drifte et landbasert resirkuleringsanlegg for oppdrett (RAS): vannkjemi, oksygenering, fôring, alarmer og fiskebiologi. Produktet hadde allerede den nødvendige funksjonaliteten; utfordringen var å redusere friksjonen i det daglige, slik at operatører raskere kunne finne, forstå og handle på riktig informasjon. Jeg startet med å undersøke hvordan folk brukte NJORD og samle inn direkte brukertilbakemeldinger, og bygde deretter om grensesnittet for å fjerne tilbakevendende friksjonspunkter uten å endre den underliggende prosessfunksjonaliteten.</p>
+
+      <div class="cs-meta-grid">
+        <div class="m"><div class="k">Domene</div><div class="v">Landbasert RAS-oppdrett</div></div>
+        <div class="m"><div class="k">Plattform</div><div class="v">Desktop-konsoll + tilhørende mobilapp</div></div>
+        <div class="m"><div class="k">Omfang</div><div class="v">27 skjermer · 9 prosess-mimics</div></div>
+        <div class="m"><div class="k">Leveranse</div><div class="v">Hi-fi React-prototype · designsystem med 33 komponenter</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cs-layout">
+      <nav class="cs-toc" aria-label="Seksjoner i case-studien">
+        <ul>
+          <li><a href="#challenge">01 · Kontekst</a></li>
+          <li><a href="#research">02 · Undersøkelse</a></li>
+          <li><a href="#strategy">03 · Strategi</a></li>
+          <li><a href="#decisions">04 · Designrespons</a></li>
+          <li><a href="#system">05 · Designsystem</a></li>
+          <li><a href="#constraints">06 · Rammer</a></li>
+          <li><a href="#rejected">07 · Ikke bygget</a></li>
+          <!-- <li><a href="#performance">· Ingeniørytelse</a></li> -->
+          <li><a href="#outcome">08 · Resultat</a></li>
+          <li><a href="#reflection">09 · Refleksjon</a></li>
+        </ul>
+      </nav>
+
+      <div>
+
+        <!-- 01 CONTEXT -->
+        <section class="cs-section" id="challenge">
+          <p class="eyebrow">01</p>
+          <h2>Kontekst</h2>
+          <div class="cs-prose">
+            <p>Et landbasert RAS-anlegg er en lukket krets, en fiskefabrikk. Vannet forlater produksjonskaret med fiskeavfall, går gjennom et trommelfilter, et biofilter som omdanner ammoniakk, en CO₂-stripper, en pumpesump og et oksygeneringstrinn, før det går tilbake til karet. Hele volumet resirkuleres flere ganger i timen. Faller oksygeneringen ut, kan et kar med fisk gå tapt på minutter. Blir biofilteret forstyrret, stiger ammoniakknivået i løpet av timer. Ingenting av dette er valgfritt, og et anlegg driftes som regel av én operatør per skift.</p>
+            <p>NJORD er programvarelaget over anlegget: en Ignition-basert HMI/SCADA-applikasjon som dekker prosess-mimics, alarmregisteret, trendanalyse, fôringsstyring, biologiregistrering og rapportering. Ombyggingen omfatter driftsapplikasjonen i nettleseren, ikke PLS-laget, historikkdatabasen eller feltutstyret.</p>
+            <p>Designutfordringen var både smal og vanskelig på samme tid: <strong>hvordan bygger man om et sikkerhetskritisk, informasjonstett industrigrensesnitt uten å fjerne informasjonen operatørene er avhengige av?</strong> Under dette lå en annen rammebetingelse: kunden drifter anlegg med ulikt antall bygg, avdelingsoppsett og prosessystemer, så løsningen kunne ikke bygges for ett anlegg alene. Den måtte holde selv når anlegget er formet annerledes.</p>
+          </div>
+        </section>
+
+        <!-- 02 RESEARCH -->
+        <section class="cs-section" id="research">
+          <p class="eyebrow">02</p>
+          <h2>Undersøkelse</h2>
+          <div class="cs-prose">
+            <p>Før jeg begynte å bygge om noe, gjennomførte jeg en målrettet UX-undersøkelse med kunden (15 respondenter blant operatør, tekniker, fiskeoppdretter, arbeidsleder og ingeniørroller) og en UX-gjennomgang av de eksisterende skjermene. Resultatene var tydelige på ett punkt først: NJORDs funksjonelle grunnmur var allerede god. Datatilgang, alarmsystemet og den daglige driftssikkerheten ble alle vurdert som gode. Problemet var innsats, ikke manglende funksjonalitet, så ombyggingen endret hvordan systemet betjenes, ikke hva det gjør.</p>
+            <p>De samme seks problemene kom opp uansett rolle, i brukernes egne ord.</p>
+          </div>
+
+          <div class="problem-grid">
+            <div class="problem-item">
+              <p class="n">01</p>
+              <h3>For mange klikk</h3>
+              <p>Overdrevent mange steg, bekreftelser og forsinkelser i daglige arbeidsflyter.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">02</p>
+              <h3>Vanskelig navigasjon</h3>
+              <p>Å nå et system krevde å gå gjennom et nøstet menytre hver gang.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">03</p>
+              <h3>Begrenset oversikt</h3>
+              <p>Å danne seg et bilde av anlegget krevde å besøke skjerm etter skjerm.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">04</p>
+              <h3>Svak trending</h3>
+              <p>Trendverktøyet var ustabilt og lite fleksibelt for reell gransking.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">05</p>
+              <h3>Dårlig mobilbrukervennlighet</h3>
+              <p>Skalering og interaksjon på telefon fungerte dårlig i praksis.</p>
+            </div>
+            <div class="problem-item">
+              <p class="n">06</p>
+              <h3>Manglende integrasjoner</h3>
+              <p>Koblet fra omkringliggende systemer; samme data ble registrert to ganger.</p>
+            </div>
+          </div>
+
+          <figure class="cs-figure reveal">
+            <div class="compare">
+              <figure>
+                <span class="tag before">Før · gammel Fiskekar-skjerm</span>
+                <img src="../../assets/img/njord/legacy-fishtank.jpg" alt="Gammel NJORD fiskekar-skjerm, et datakort med flere faner uten tydelig hierarki" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">Etter · ombygd Fiskekar</span>
+                <img src="../../assets/img/njord/fishtank.jpg" alt="Ombygd fiskekar-kort med to fremhevede avlesninger, en statusrad og én samlet parameterskuff" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <figcaption>Et konkret eksempel på «begrenset oversikt»: fiskekar-skjermen gjemte de to avlesningene operatørene faktisk trengte inni fire datafaner uten hierarki. Ombyggingen løfter dem til fremhevet størrelse og slår sammen fanene til én Parameters-skuff.</figcaption>
+          </figure>
+
+          <p class="cs-prose" style="margin-top:1.5rem; max-width:66ch;">Disse seks problemene, ikke en abstrakt designkritikk, er det resten av denne case-studien svarer på. §04 viser hvilken beslutning som svarer på hvilket funn, og hvor et funn ikke ble adressert i det hele tatt.</p>
+
+          <p class="hypothesis-note">Undersøkelsen og gjennomgangen ga ikke et statistisk signifikant utvalg; de ga tilbakevendende mønstre som var troverdige nok til å prioritere mot. Behandle de seks problemene over som diagnostiserte smertepunkter, ikke målte forekomster.</p>
+        </section>
+
+        <!-- 03 STRATEGY -->
+        <section class="cs-section" id="strategy">
+          <p class="eyebrow">03</p>
+          <h2>Designstrategi</h2>
+          <div class="cs-prose">
+            <p>Dette var ikke en visuell oppussing. Arbeidet gikk gjennom fem lag, i rekkefølge: situasjonsforståelse, deretter informasjonsarkitektur, deretter interaksjonsdesign, deretter designsystemet, og til slutt rammene for implementering, fordi en beslutning i ett lag kunne bli omgjort av en begrensning som dukket opp i det neste.</p>
+            <ul>
+              <li>Oversikt før detaljer, og gjenkjennelse fremfor hukommelse</li>
+              <li>Avvikstilstander får visuell prioritet: farge brukes bevisst, ikke som pynt</li>
+              <li>Én kilde til sannhet for hvert tall på skjermen</li>
+              <li>Eksplisitte handlinger fremfor «klikk hvor som helst»-løsninger</li>
+              <li>Design rundt operatørens beslutning, ikke rundt dataene systemet tilfeldigvis lagrer</li>
+              <li>Konfigurasjon fremfor hardkodet oppsett, slik at et annet anlegg ikke krever en egen forgrening av produktet</li>
+              <li>Universell utforming og ytelse behandlet som produktkrav, ikke noe man tar til slutt</li>
+            </ul>
+            <p>Ikke alle beslutninger under kan spores tilbake til et funn fra undersøkelsen. Der de seks problemene ikke dekket terrenget, var det industrielle HMI-standarder som avgjorde i stedet: ISA-18.2 for alarmenes livssyklus, ISA-101 for visningshierarki og fargedisiplin, WCAG 2.2 AA som minstekrav til universell utforming. Å ignorere dem hadde vært uforsvarlig. Å følge dem uten dømmekraft ville gitt en skjerm fra 1995. De fleste diskutable beslutningene under ble avgjort ved å lese standarden eller undersøkelsen, ikke ved smak.</p>
+          </div>
+        </section>
+
+        <!-- 04 KEY DECISIONS -->
+        <section class="cs-section" id="decisions">
+          <p class="eyebrow">04</p>
+          <h2>Designresponsen</h2>
+          <p class="lede">Seks beslutninger bar mesteparten av vekten i ombyggingen. Fem kan spores direkte til et funn fra undersøkelsen i §02; den siste kom fra bransjestandarder snarere enn brukertilbakemeldinger. Hver av dem vises som før → beslutning → etter.</p>
+          <figure class="cs-figure reveal">
+            <div class="scope-table-wrap">
+              <table class="scope-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Funn fra undersøkelsen</th>
+                    <th scope="col">Omfang</th>
+                    <th scope="col">Designrespons</th>
+                    <th scope="col">Kundeverdi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="finding">For mange klikk</td>
+                    <td><span class="scope-status addressed">Adressert</span></td>
+                    <td>Kortere arbeidsflyter og direkte handlinger</td>
+                    <td>Raskere i det daglige</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Vanskelig navigasjon</td>
+                    <td><span class="scope-status addressed">Adressert</span></td>
+                    <td>Forenklet navigasjonsstruktur</td>
+                    <td>Mindre tid brukt på navigering</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Begrenset oversikt</td>
+                    <td><span class="scope-status addressed">Adressert</span></td>
+                    <td>Dashbord og forbedret informasjonshierarki</td>
+                    <td>Raskere situasjonsforståelse</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Svak trending</td>
+                    <td><span class="scope-status addressed">Adressert</span></td>
+                    <td>Ombygd trendarbeidsflyt og -håndtering</td>
+                    <td>Raskere gransking</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Dårlig mobilbrukervennlighet</td>
+                    <td><span class="scope-status addressed">Adressert</span></td>
+                    <td>Responsive oppsett og native interaksjoner</td>
+                    <td>Bedre drift ute i felt</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Dobbeltarbeid</td>
+                    <td><span class="scope-status future">Fremtidig ingeniørarbeid</span></td>
+                    <td>Designet for å støtte fremtidige integrasjoner</td>
+                    <td>Mindre manuelt arbeid, når det er implementert</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Hyppige utlogginger</td>
+                    <td><span class="scope-status neutral">Backend / autentisering</span></td>
+                    <td>Ikke adressert (backend-ansvar)</td>
+                    <td>Gjennomsiktig omfang</td>
+                  </tr>
+                  <tr>
+                    <td class="finding">Lastetid og treghet</td>
+                    <td><span class="scope-status neutral">Ingeniøroptimalisering</span></td>
+                    <td>Reduserte unødvendige interaksjoner</td>
+                    <td>Mindre opplevd ventetid</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </figure>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 1 <span class="finding-tag">Svarer på: Begrenset oversikt</span></p>
+            <h3>Startskjermen ble et dashbord</h3>
+            <div class="cs-prose">
+              <p>Appen pleide å åpne rett inn i et systembilde som kanskje ikke hadde noe med det faktiske problemet det skiftet å gjøre. Ombyggingen åpner på en oversikt over hele anlegget: en KPI-rad mot reelle, konfigurerte grenser, en alvorlighetssortert liste over aktive alarmer, en statusoversikt for bygninger, og et panel for manøverhistorikk, den ene delen av den opprinnelige skjermen som allerede var nyttig.</p>
+            </div>
+            <figure class="cs-figure reveal">
+              <div class="compare">
+                <figure>
+                  <span class="tag before">Før · gammel startside</span>
+                  <img src="../../assets/img/njord/legacy-start.jpg" alt="Gammel NJORD-startside, et rutenett av identiske grå navigasjonsknapper" loading="lazy" width="1440" height="900">
+                </figure>
+                <figure>
+                  <span class="tag after">Etter · Dashbord</span>
+                  <img src="../../assets/img/njord/dashboard.jpg" alt="Ombygd NJORD-dashbord med KPI-rad, aktive alarmer og bygningsstatus" loading="lazy" width="1440" height="900">
+                </figure>
+              </div>
+              <figcaption>Den gamle startskjermen var en oversikt over identiske knapper. Ingenting på den fortalte om anlegget var i orden. Et tidlig utkast la også inn en fullverdig, klikkbar anleggsnavigator her; den ble fjernet igjen fordi to navigatorer er en svikt i informasjonsarkitekturen, ikke en fordel.</figcaption>
+            </figure>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 2 <span class="finding-tag">Svarer på: Vanskelig navigasjon</span></p>
+            <h3>Navigasjonen ble et kart</h3>
+            <div class="cs-prose">
+              <p>Det gamle «Navigasjon»-punktet var et menytre uten noen sammenheng med det fysiske anlegget. Nå er det en anleggsplan: bygninger som grunnflater, avdelinger som soner, systemer som noder, der verste status ruller opp til avdelings- og bygningsnivå. Operatørene har allerede denne planen i hodet, de går den jo, så kartet gjenbruker en mental modell i stedet for å be om en ny, vilkårlig en.</p>
+              <p>Den viktige delen er usynlig: hele treet tegnes fra én felles konfigurasjonsstruktur for anlegget. Et anlegg med fire bygninger og uten klekkeri gir et annet kart ut fra samme kode, og det er det som gjør produktet brukbart på kundens andre anlegg, ikke bare dette ene.</p>
+            </div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 3 <span class="finding-tag">Svarer på: For mange klikk, Svak trending</span></p>
+            <h3>Alarm → trend ble én handling</h3>
+            <div class="cs-prose">
+              <p>Dette var den dyreste svakheten å rette, og den mest verdifulle. Tidligere krevde det å granske en alarm at man leste taggen, husket den, gjettet hvilket mimic den tilhørte, navigerte menytreet, fant sensoren, og åpnet trendmodulen for hånd.</p>
+            </div>
+            <p class="mono" style="margin-top:1.5rem; font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Før: åtte manuelle steg</p>
+            <div class="flow-chain">
+              <span class="step">Alarm utløses</span><span class="arrow">→</span>
+              <span class="step">Les og husk tag</span><span class="arrow">→</span>
+              <span class="step">Gjett mimic</span><span class="arrow">→</span>
+              <span class="step">Naviger menytre</span><span class="arrow">→</span>
+              <span class="step">Finn sensoren</span><span class="arrow">→</span>
+              <span class="step">Åpne trendmodul</span><span class="arrow">→</span>
+              <span class="step">Legg til penn, sett tidsvindu</span>
+            </div>
+            <p class="mono" style="margin-top:1.5rem; font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Etter: én eksplisitt handling</p>
+            <div class="flow-chain after">
+              <span class="step hi">Alarmrad → Undersøk</span><span class="arrow">→</span>
+              <span class="step hi">Trend åpnes, sentrert på alarmtidspunktet, med terskel tegnet inn</span>
+            </div>
+            <div class="rationale-box">Hver alarm bærer nå sin målte prosessvariabel, enhet og terskel, slik at trenden automatisk kan sentrere seg selv på alarmtidspunktet. Diskrete alarmer uten analog verdi (kommunikasjonsfeil, driftsfeil) åpner en hendelseslinje i stedet for en tom graf, i stedet for å tvinge frem et oppslag som ikke passer.</div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 4 <span class="finding-tag standard">Ikke et funn fra undersøkelsen — ISA-101 fargedisiplin</span></p>
+            <h3>Farge ble et semantisk system</h3>
+            <div class="cs-prose">
+              <p>Normal drift ble bevisst gjort nøytral (mørk grå for i drift, lys grå for stoppet), og farge ble forbeholdt utelukkende avvikstilstander. Dette er ikke en estetisk preferanse, det er doktrinen om gråtoner fra High-Performance HMI, og det er derfor de ombygde mimic-skjermene ser «enklere» ut enn de gamle, samtidig som de leses raskere med et blikk.</p>
+            </div>
+            <figure class="cs-figure reveal">
+              <div class="compare">
+                <figure>
+                  <span class="tag before">Før · gammel Pumpesump</span>
+                  <img src="../../assets/img/njord/legacy-pumpsump.jpg" alt="Gammel pumpesump-mimic med mettet grønt utstyr og enfargede rør" loading="lazy" width="1440" height="900">
+                </figure>
+                <figure>
+                  <span class="tag after">Etter · ombygd Pumpesump</span>
+                  <img src="../../assets/img/njord/pumpsump.jpg" alt="Ombygd pumpesump-mimic med nøytrale utstyrstilstander og væskekodede rør" loading="lazy" width="1440" height="900">
+                </figure>
+              </div>
+              <figcaption>Elleve mettet-grønne pumper til venstre bruker farge på «normalt». Til høyre er utstyrstilstanden nøytral, og rørene er farget etter væsken de fører, slik at oksygen-, prosessvann- og dreneringskretser skiller seg ut med et blikk, og lar fargen stå fritt til det ene som faktisk er galt.</figcaption>
+            </figure>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 5 <span class="finding-tag">Svarer på: Dårlig mobilbrukervennlighet</span></p>
+            <h3>Mobil ble sin egen opplevelse, ikke et krympet desktop-grensesnitt</h3>
+            <div class="cs-prose">
+              <p>En responsiv desktop-applikasjon forble en responsiv desktop-applikasjon. Telefonopplevelsen gjorde ikke det: den er et eget oppsett bygget for en telefon, ikke desktop-grensesnittet skalert ned for å passe. Fullstørrelse berøringsflater, én oppgave per skjerm, og feltoppgavene operatørene faktisk trenger der ute, i stedet for en kontrollromskjerm krympet til den så vidt er brukbar.</p>
+            </div>
+          </div>
+
+          <div class="decision-block">
+            <p class="decision-num">Beslutning 6 <span class="finding-tag standard">Ikke et funn fra undersøkelsen — skalerbarhet på tvers av anlegg</span></p>
+            <h3>Systemet ble konfigurerbart</h3>
+            <div class="cs-prose">
+              <p>Ett anlegg ble designet i detalj (tre bygninger, ni avdelinger, reelle tag-navn), men behandlet som et eksempel snarere enn en spesifikasjon. Bygninger, avdelinger og systemer kommer alle fra én felles anleggsstruktur; systemskjermer løses via et register i stedet for en hardkodet ruteliste; utstyr som gjelder hele anlegget og ikke hører til én bestemt bygning, fikk sin egen ærlige plass på kartet i stedet for å bli presset inn i hierarkiet.</p>
+            </div>
+            <div class="flow-chain" style="margin-top:1.5rem;">
+              <span class="step">Ett anlegg, modellert i detalj</span><span class="arrow">→</span>
+              <span class="step hi">Konfigurasjon, ikke oppsett</span><span class="arrow">→</span>
+              <span class="step">Et annerledes formet anlegg</span><span class="arrow">→</span>
+              <span class="step hi">Samme produktarkitektur</span>
+            </div>
+          </div>
+
+          <details class="expand reveal">
+            <summary>To skjermer til, for å vise mønsteret, ikke bare volumet</summary>
+            <div class="cs-prose">
+              <p>De seks beslutningene over gjentar seg på tvers av hver skjerm i produktet. To eksempler til, kort fortalt:</p>
+            </div>
+            <div class="compare" style="margin-top:1.5rem;">
+              <figure>
+                <span class="tag before">Før · Alarmstatistikk</span>
+                <img src="../../assets/img/njord/legacy-alarmstats.jpg" alt="Gammel alarmstatistikk-skjerm med tre nivåer av faner og en omvendt alvorlighetsskala" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">Etter · Alarmstatistikk</span>
+                <img src="../../assets/img/njord/alarmstats.jpg" alt="Ombygd alarmstatistikk-side styrt av én enkelt tidsromskontroll" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <div class="compare" style="margin-top:1.5rem;">
+              <figure>
+                <span class="tag before">Før · Fiskevelferd</span>
+                <img src="../../assets/img/njord/legacy-welfare.jpg" alt="Gammelt registreringsskjema for velferd med alle indikatorer forhåndshuket og ingen registreringshistorikk" loading="lazy" width="1440" height="900">
+              </figure>
+              <figure>
+                <span class="tag after">Etter · Fiskebiologi</span>
+                <img src="../../assets/img/njord/welfare.jpg" alt="Ombygd fiskebiologi-skjerm med registreringsoversikt, dødelighet og dødsårsak" loading="lazy" width="1440" height="900">
+              </figure>
+            </div>
+            <p class="cs-prose" style="margin-top:1rem; font-size:0.9rem; color:var(--muted);">Alarmstatistikk slo sammen tre nivåer av faner til én side styrt av én tidsromskontroll, da det ble klart at dette var én analyse i tre tidsrom, ikke tre ulike analyser. Fiskebiologi erstattet et tomt skjema med et register (parti, avdeling, kar, forfatter, fremdrift i scoring), fordi den gamle skjermen ikke husket hva som allerede var registrert.</p>
+          </details>
+        </section>
+
+        <!-- 05 DESIGN SYSTEM -->
+        <section class="cs-section" id="system">
+          <p class="eyebrow">05</p>
+          <h2>Designsystem</h2>
+          <p class="lede">33 komponenter fordelt på 8 grupper, delt mellom desktop-konsollen og mobilappen.</p>
+          <div class="cs-prose">
+            <p>Systemet ble importert inn i prosjektet før noe skjermarbeid startet, slik at tokens, typografi og komponentkonvensjoner fantes som ekte, fungerende filer, ikke et dokument noen måtte huske på. Et tema er en variabel-omkobling, ikke et parallelt stilark, og det er det som lot tre temaer (moderne lyst, et mørkt tema for nattskift, og et gammelt tema for endringshåndtering) holde seg synkronisert gjennom hele ombyggingen.</p>
+          </div>
+          <div class="system-gallery">
+            <div class="grp"><p class="k">Kjerne</p><p class="items">Knapper, inndatafelt, kort, faner, merker, verktøytips</p></div>
+            <div class="grp"><p class="k">Alarmer</p><p class="items">Statusmerker, alvorlighetsskala, verktøylinje for massehandlinger, kontroller for undertrykking</p></div>
+            <div class="grp"><p class="k">Datavisning</p><p class="items">Trendgrafer, statistikkrader, tabeller, KPI-fliser, fordelingsdiagrammer</p></div>
+            <div class="grp"><p class="k">SCADA</p><p class="items">Noder, pumper, ventiler, sensorbokser, porter, kodede rør, tegnforklaringer</p></div>
+            <div class="grp"><p class="k">Overlegg</p><p class="items">Utstyrsvindu, dialog for parameterredigering, varsler, bekreftelsesdialoger</p></div>
+            <div class="grp"><p class="k">Navigasjon</p><p class="items">Sidemeny, toppmeny, anleggsplan, brødsmulesti, kontekstvelger</p></div>
+            <div class="grp"><p class="k">Skjemaer</p><p class="items">Filtre, søk, registreringsflyter, rolle- og brukeradministrasjon</p></div>
+            <div class="grp"><p class="k">Mobil</p><p class="items">Sveiperad, dra-for-å-oppdatere, bunnark, fanelinje</p></div>
+          </div>
+          <p class="body-text" style="margin-top:1.5rem; max-width:60ch;">Bare de mobil- og desktop-spesifikke komponentene forgrener seg; alarmmodellen, alvorlighetsskalaen og tekstreglene er identiske på tvers av begge, og det er det som hindrer de to flatene fra stille og umerkelig å si imot hverandre.</p>
+        </section>
+
+        <!-- 06 CONSTRAINTS -->
+        <section class="cs-section" id="constraints">
+          <p class="eyebrow">06</p>
+          <h2>Å designe innenfor virkeligheten</h2>
+          <p class="lede">Tre rammebetingelser som endret beslutninger, ikke bare gjennomføringen.</p>
+          <div class="constraint-grid">
+            <div class="constraint-card">
+              <p class="k">Plattform</p>
+              <h3>Ignition / industrielt SCADA</h3>
+              <p>Klientside-aggregering på tvers av hundrevis av tagger er kostbart på denne plattformen, og alt som går gjennom hele utstyrstreet ved sideinnlasting risikerer å gjøre hver eneste navigering treg. Dette alene tok livet av en funksjon som allerede var bygget. Se §07.</p>
+            </div>
+            <div class="constraint-card">
+              <p class="k">Data</p>
+              <h3>Hva anlegget faktisk kan gi data om</h3>
+              <p>Systemet registrerer verken manøvertype, velferdsbånd eller sporing av reserve- versus primæroksygen. Tilbakemeldinger fra ingeniørene tok gjentatte ganger funksjoner av bordet, snarere enn å legge til dem. Hver fjerning er dokumentert i §07.</p>
+            </div>
+            <div class="constraint-card">
+              <p class="k">Endringsledelse</p>
+              <h3>Muskelhukommelse i det gamle HMI-et</h3>
+              <p>Operatørene har år med innøvd respons i det gamle grensesnittet. En ombygging som gjør alt dette ugyldig under overgangen er en sikkerhetsrisiko, ikke bare friksjon, og det er den direkte grunnen til at et gammelt visuelt tema finnes.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 REJECTED -->
+        <section class="cs-section" id="rejected">
+          <p class="eyebrow">07</p>
+          <h2>Ikke bygget</h2>
+          <p class="lede">Ikke alle ideer overlevde møtet med hva anlegget faktisk kunne understøtte, og det er ulike grunner til at jeg valgte å ikke bygge enkelte funksjoner.</p>
+          <div class="subtract-list">
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>Et alarmbanner per system</strong> på hver prosesskjerm. Allerede bygget, allerede fikset for en rutingfeil, men å oppsummere alarmer per utstyr krevde å gå gjennom tag-treet ved hver sideinnlasting, en kostnad betalt for alltid for å spare ett klikk den globale annonsatoren allerede dekket.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>EEMUA-målbenchmarking</strong> på Statistikk-siden. Godt forankret i litteraturen om alarmhåndtering, og helt umulig å bygge: plattformen har ingen mekanisme for å sette målene den skulle måles mot.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>Klassifisering av manøvertype</strong> (settpunkt / tilstand / overstyring) i revisjonsloggen. Kan ikke utledes fra parametermodellen, og en feil merkelapp i et revisjonsspor er verre enn ingen.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>Velferdsbånd og en sammensatt velferdsscore.</strong> Statistisk feil for ordinale indikatordata, og det ville skjult det ene spesifikke dårlige funnet registreringen finnes for å avdekke.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>Sporing av reserve- versus primæroksygen.</strong> Anlegget sporer det ikke. Erstattet med tilstanden som faktisk finnes: om nødoksygenventilen er åpen eller lukket.</p>
+            </div>
+            <div class="item">
+              <p class="strike">Fjernet</p>
+              <p><strong>Animert flyt i rørene på mimic-skjermene.</strong> Attraktivt, men avvist fordi det ville trekke oppmerksomhet på feil grunnlag, siden det ikke er en markør for en avvikstilstand.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 08 ENGINEERING PERFORMANCE -->
+        <!-- <section class="cs-section" id="performance">
+          <p class="eyebrow">08</p>
+          <h2>Ingeniørytelse (målinger på ny versjon)</h2>
+          <div class="cs-prose">
+            <p>Disse målingene sammenligner den nye nettløsningen før og etter en fiks i rendringsarkitekturen. De sammenligner ikke det ombygde grensesnittet med den gamle NJORD-versjonen i produksjon. En bestemt visning ble meldt som «treg» under gjennomgang; den nye versjonen ble instrumentert for å forstå årsaken før noen kodeendringer ble forsøkt.</p>
+          </div>
+          <div class="perf-compare">
+            <div class="box before">
+              <p class="lbl">Målt på den nye versjonen, før fiksen</p>
+              <div class="row"><span>Sidebytte</span><span>1 014 ms</span></div>
+              <div class="row"><span>Merk alle</span><span>2 475 ms</span></div>
+              <div class="row"><span>Full innlasting av appen</span><span>17,5 s</span></div>
+            </div>
+            <div class="box after">
+              <p class="lbl">Målt på samme versjon etter fiksen i rendringsarkitekturen</p>
+              <div class="row"><span>Sidebytte</span><span>48 ms</span></div>
+              <div class="row"><span>Merk alle</span><span>33 ms</span></div>
+              <div class="row"><span>Full innlasting av appen</span><span>2,3 s</span></div>
+            </div>
+          </div>
+          <div class="cs-prose" style="margin-top:1.5rem;">
+            <p>Den opplagte fiksen (å begrense antall rader i tabellen) ville ikke gjort noe, fordi sidestørrelsen allerede var 50 rader. Den faktiske årsaken var en ikon-rendringseffekt uten avhengighetsliste, som skannet gjennom hele dokumentet etter ikoner ved hver tilstandsendring. Med rundt 390 ikoner på skjermen tilsvarer det en O(ikoner²)-kostnad. Å mellomlagre hvert ikons SVG og nøkle effekten fikset tallene over.</p>
+            <p>Poenget er ikke ikonene. Poenget er at ingeniørarbeid og UX må jobbe sammen: en veloverveid funksjon kan være riktig og likevel være feil funksjon hvis den belaster hver eneste sideinnlasting.</p>
+          </div>
+        </section> -->
+
+        <!-- 09 OUTCOME -->
+        <section class="cs-section" id="outcome">
+          <p class="eyebrow">08</p>
+          <h2>Resultat</h2>
+          <p class="lede">Det som faktisk ble levert, holdt adskilt fra det som fortsatt gjenstår å måle.</p>
+
+          <div class="stat-strip">
+            <div class="stat"><div class="num">27</div><div class="label">Skjermer ombygget</div></div>
+            <div class="stat"><div class="num">9</div><div class="label">Prosess-mimics</div></div>
+            <div class="stat"><div class="num">33</div><div class="label">Komponenter i designsystemet</div></div>
+            <div class="stat"><div class="num">2</div><div class="label">Plattformer, ett system</div></div>
+            <div class="stat"><div class="num">1</div><div class="label">Delt produktarkitektur</div></div>
+          </div>
+
+          <div class="cs-prose" style="margin-top:2.5rem;">
+            <p><strong>Levert og verifiserbart i selve løsningen:</strong> avvik i telling på tvers av skjermer er nå arkitektonisk umulig, ikke bare noe som testes for; hver skjerm deler samme skall, samme tabellmønster, samme dialogmønster; væskefarger og tilhørende tegnforklaringer ligger i ett felles register slik at de ikke kan drifte fra hverandre; anleggsstruktur, systemskjermer og fellesutstyr er alt sammen konfigurasjon, ikke hardkodet oppsett; en gjennomgang av kontrast på tvers av temaer, som dekket 1 980 tekstnoder i tre temaer, kom tilbake med null AA-kontrastfeil etter syv rettelser.</p>
+          </div>
+
+          <!-- <div class="rationale-box" style="margin-top:2rem;">
+            <strong>Behandlet som hypoteser, ikke målinger:</strong> ingen formell brukertest ble gjennomført i dette oppdraget. Tall som «åtte steg samlet til ett klikk» for alarmgransking beskriver selve interaksjonsdesignet og kan verifiseres ved inspeksjon, men forbedringer i deteksjonshastighet, diagnosetid eller operatørtillit er mål for fremtidig validering, ikke resultater. Den fullstendige måleplanen (hva som skulle testes, mot hvilken grunnlinje) er del av prosjektets dokumentasjon.
+          </div> -->
+
+          <!-- <details class="expand reveal" style="margin-top:1.5rem;">
+            <summary>Undersøkelse og interaksjonsbevis (kort oppsummert)</summary>
+            <div class="cs-prose">
+              <p>En oppfølgingsundersøkelse med kunden (15 respondenter blant operatør, tekniker, fiskeoppdretter, arbeidsleder og ingeniørroller) støttet den opprinnelige diagnosen: NJORDs funksjonelle grunnmur ble ansett som nyttig, og problemet som viste seg i det daglige arbeidet var innsats og friksjon, ikke manglende kjernefunksjonalitet.</p>
+              <p>Interaksjonsbevis ble samlet inn ved å gå gjennom representative oppgaver i de gamle skjermene og i ombyggingen (inspeksjon av flytene, ikke en kontrollert brukertest). Disse stegtellingene viser hvor unødvendige steg kunne fjernes: for eksempel gikk det å åpne en trend fra to klikk til ett; å nå et system via menyen fra to klikk til ett; å åpne den historiske alarmlisten fra fire klikk til to. Disse tallene illustrerer interaksjonsforenklingene, uten å hevde målte ytelsesgevinster.</p>
+              <p>Omfanget forble eksplisitt: design adresserte færre klikk, forenklet navigasjon, dashbordet, ombygd trending og mobil. Punkter som krevde ingeniørarbeid (integrasjoner, autentisering/sesjonshåndtering og enkelte ytelsesfikser på backend) ble ført som fremtidig arbeid. På tidspunktet for denne undersøkelsen var det samme designmønsteret brukt på 34 prosesskjermer i prosjektets kodebase, opp fra 27 skjermer i den innledende ombyggingen.</p>
+            </div>
+          </details> -->
+        </section>
+
+        <!-- 10 REFLECTION -->
+        <section class="cs-section" id="reflection">
+          <p class="eyebrow">09</p>
+          <h2>Refleksjon</h2>
+          <div class="reflection reveal">
+            <p>Den sterkeste delen av dette arbeidet var ikke å legge til mer funksjonalitet. Det var å avgjøre hva produktet skulle gjøre synlig, hva det skulle utelate, og hva som måtte bli strukturelt konsistent: ett alarmregister i stedet for fem steder som telte det samme, én anleggsmodell i stedet for et skjermsett som bare fungerte for ett anlegg.</p>
+            <!-- <footer>Kristina Krivošija</footer> -->
+          </div>
+          <p class="hypothesis-note" style="margin-top:2rem;">Denne case-studien rekonstruerer designprosessen fra prosjektets arbeidsdokumentasjon. Seksjoner som beskriver antatt kontekst (personas, anleggsstørrelse, antall operatører) er merket som antakelser, ikke funn, gjennom hele kildematerialet. Ingen tredjeparts revisjon mot ISA-18.2, ISA-101 eller WCAG 2.2 er utført på prototypen.</p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <nav class="cs-nextprev" aria-label="Andre case-studier">
+    <a href="../index.html#work"><p class="eyebrow">Tilbake til</p><p class="ttl">← Utvalgte prosjekter</p></a>
+    <a class="next" href="laerdal.html"><p class="eyebrow">Neste case-studie</p><p class="ttl">Laerdal Support →</p></a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <div class="f-brand">Kristina Krivošija</div>
+      <div class="f-tag">Brukerinnsikt · Produktstrategi · UX/UI</div>
+      <div class="f-tag">Tønsberg, Norge</div>
+    </div>
+    <nav aria-label="Bunntekst">
+      <ul>
+        <li><a href="../index.html#work">Prosjekter</a></li>
+        <li><a href="../index.html#about">Om meg</a></li>
+        <li><a href="../index.html#contact">Kontakt</a></li>
+        <li><a href="https://linkedin.com/in/kkrivosija" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="f-bottom">
+    <span>© <span id="year">2026</span> Kristina Krivošija</span>
+    <!-- <span>NJORD er en design case-studie, ikke en samsvarssertifisering.</span> -->
+  </div>
+</footer>
+<script src="../../js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

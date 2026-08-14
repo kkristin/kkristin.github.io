@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plant-O-Meter: Precision Agriculture App | Kristina Krivošija</title>
+<meta name="description" content="Product design case study by Kristina Krivošija, a product designer based in Norway: usability redesign of the Plant-O-Meter companion app, helping farmers monitor and interpret plant health data from a precision-agriculture device.">
+<link rel="canonical" href="https://kkristin.github.io/work/plant-o-meter.html">
+<link rel="alternate" hreflang="en" href="https://kkristin.github.io/work/plant-o-meter.html">
+<link rel="alternate" hreflang="no" href="https://kkristin.github.io/no/work/plant-o-meter.html">
+<link rel="alternate" hreflang="x-default" href="https://kkristin.github.io/work/plant-o-meter.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plant-O-Meter: Precision Agriculture App">
+<meta property="og:description" content="Usability redesign of a companion app for a precision-agriculture device, simplifying navigation and plant-health data interpretation for farmers.">
+<meta property="og:url" content="https://kkristin.github.io/work/plant-o-meter.html">
+<meta property="og:image" content="https://kkristin.github.io/assets/img/plant/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Kristina Krivošija</a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-switch" aria-label="Language">
+        <span class="lang-current" aria-current="page">EN</span>
+        <span class="sep">/</span>
+        <a href="../no/work/plant-o-meter.html" hreflang="no" lang="no">NO</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark theme">
+        <span class="icon">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg>
+        </span>
+        <span class="label-light">Dark</span>
+        <span class="label-dark">Light</span>
+      </button>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="cs-hero">
+    <div class="wrap cs-narrow">
+      <a class="cs-back" href="../index.html#work">← Selected work</a>
+      <p class="eyebrow" style="margin-top:1.4rem;">Case study <span class="dot">·</span> Agriculture / IoT</p>
+      <h1>Plant-O-Meter</h1>
+      <p class="lede">Improving usability for the app that turns a precision-agriculture device's raw readings into plant health data a farmer can actually use in the field.</p>
+      <div class="cs-meta-grid">
+        <div class="m"><div class="k">Role</div><div class="v">Research, wireframes, prototyping</div></div>
+        <div class="m"><div class="k">Platform</div><div class="v">Mobile companion app</div></div>
+        <div class="m"><div class="k">Users</div><div class="v">Farmers monitoring plant health</div></div>
+        <div class="m"><div class="k">Format</div><div class="v">Research-led redesign</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap cs-narrow">
+    <section class="cs-section" style="border-top:none;">
+      <figure class="cs-figure reveal" style="margin-top:0;">
+        <img src="../assets/img/plant/hero.jpg" alt="Plant-O-Meter app screens collage across onboarding, data and history views" loading="lazy" width="1046" height="523" style="border-radius:var(--radius-m); border:1px solid var(--line);">
+      </figure>
+      <a target="_blank" rel="noopener" href="https://www.plant-o-meter.com/" style="color:var(--accent); text-decoration:underline;">Link to Plant-O-Meter page</a>
+    </section>
+
+    <section class="cs-section">
+      <p class="eyebrow">Background</p>
+      <h2>A useful device, held back by its app</h2>
+      <div class="cs-prose">
+        <p>The Plant-O-Meter device collects real plant-health data, but the first version of its companion app made that data hard to use. Feedback and internal review both pointed at the same things: navigation complexity and a general lack of clarity in how information was presented, enough to get in the way of the device's actual value.</p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <p class="eyebrow">Challenge</p>
+      <h2>Turning raw readings into something farmers can act on</h2>
+      <div class="cs-prose">
+        <p>The redesign had to make the app itself accessible and genuinely useful for interpreting plant-health data, against a backdrop of other real constraints in the space: equipment reliability, GPS signal consistency, cross-functionality between different GPS systems, and a shortage of precision-equipment technicians to support farmers directly.</p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <p class="eyebrow">Process</p>
+      <h2>Research → personas → wireframes → prototype</h2>
+      <div class="cs-prose">
+        <ul>
+          <li><strong>Research</strong>: into farmer preferences and the technology they already use day to day.</li>
+          <li><strong>User personas</strong>: built to keep the app experience anchored to real preferences, pain points and expectations rather than assumptions.</li>
+          <li><strong>Wireframes</strong>: the new app structure, built directly from research findings.</li>
+          <li><strong>Prototype</strong>: interactive, used to test the redesigned interface before committing to it.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <p class="eyebrow">My contribution</p>
+      <h2>From pain points to shipped decisions</h2>
+      <div class="cs-prose">
+        <p>My role covered understanding user pain points, conducting research, building wireframes against a given direction, and prototyping, then working with development to implement the design. The throughline was simplifying navigation, clarifying information, and making the interface something a farmer would actually want to open in the field.</p>
+      </div>
+    </section>
+  </div>
+
+  <nav class="cs-nextprev" aria-label="Other case studies">
+    <a href="crypho.html"><p class="eyebrow">Previous</p><p class="ttl">← Crypho</p></a>
+    <a class="next" href="njord.html"><p class="eyebrow">Back to flagship</p><p class="ttl">NJORD →</p></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <div class="f-brand">Kristina Krivošija</div>
+      <div class="f-tag">Product Design · UX · UI · Design Systems</div>
+      <div class="f-tag">Tønsberg, Norway</div>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="https://linkedin.com/in/kkrivosija" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="f-bottom">
+    <span>© <span id="year">2026</span> Kristina Krivošija</span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
