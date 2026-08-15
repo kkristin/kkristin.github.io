@@ -347,7 +347,7 @@ section{ padding: var(--section-pad) 0; }
 .ow-inline .ow-item{ color: var(--muted); }
 .ow-inline .ow-item:not(:last-child)::after{ content: "  ·  "; color: var(--line); }
 .ow-inline strong{ color: var(--ink-soft); font-weight: 600; }
-.ow-inline .ow-ctx{ font-weight: 400; color: var(--muted-2); font-size: 0.9em; }
+.ow-inline .ow-ctx{ font-weight: 400; color: var(--muted); font-size: 0.9em; }
 .ow-inline a{ color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 .ow-inline a:hover{ color: var(--accent); text-decoration-color: var(--accent); }
 
@@ -508,7 +508,7 @@ a.cert-title:hover{ color: var(--accent); text-decoration-color: var(--accent); 
 .cs-meta-grid .m .v{ margin-top: 0.4rem; font-size: 0.95rem; font-weight: 500; }
 
 .cs-layout{ display: grid; grid-template-columns: 200px minmax(0,1fr); gap: clamp(2rem,5vw,4rem); align-items: start; }
-@media (max-width: 980px){ .cs-layout{ grid-template-columns: 1fr; } }
+@media (max-width: 980px){ .cs-layout{ grid-template-columns: minmax(0,1fr); } }
 .cs-toc{ position: sticky; top: 96px; }
 .cs-toc ul{ display:flex; flex-direction: column; gap: 0.7rem; border-left: 2px solid var(--line); }
 .cs-toc a{ font-size: 0.85rem; color: var(--muted); padding: 0.15rem 0 0.15rem 0.9rem; display:block; border-left: 2px solid transparent; margin-left: -2px; }
@@ -525,7 +525,7 @@ a.cert-title:hover{ color: var(--accent); text-decoration-color: var(--accent); 
 .cs-prose ul{ margin-top: 1em; }
 .cs-prose li{ position: relative; padding-left: 1.3em; color: var(--ink-soft); line-height: 1.6; }
 .cs-prose li + li{ margin-top: 0.55em; }
-.cs-prose li::before{ content: "—"; position: absolute; left: 0; color: var(--muted-2); }
+.cs-prose li::before{ content: "—"; position: absolute; left: 0; color: var(--muted); }
 
 figure.cs-figure{ margin-top: 2rem; }
 figure.cs-figure img{ border-radius: var(--radius-m); border: 1px solid var(--line); }
@@ -590,7 +590,7 @@ table.scope-table{ width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 }
 .flow-chain .step{ background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem; }
 .flow-chain .step.hi{ background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
-.flow-chain .arrow{ color: var(--muted-2); }
+.flow-chain .arrow{ color: var(--muted); }
 .flow-chain.after .step{ background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
 
 .rationale-box{

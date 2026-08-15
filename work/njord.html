@@ -21,7 +21,9 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="../css/style.css">
 <script type="application/ld+json">
 {
@@ -172,11 +174,11 @@
             <div class="compare">
               <figure>
                 <span class="tag before">Before · legacy Fish Tank screen</span>
-                <img src="../assets/img/njord/legacy-fishtank.jpg" alt="Legacy NJORD fish tank screen, a multi-tab data card with no clear hierarchy" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/legacy-fishtank.jpg" alt="Legacy NJORD fish tank screen, a multi-tab data card with no clear hierarchy" loading="lazy" width="900" height="562">
               </figure>
               <figure>
                 <span class="tag after">After · redesigned Fish Tank</span>
-                <img src="../assets/img/njord/fishtank.jpg" alt="Redesigned fish tank card with two hero readouts, a status row and a single Parameters drawer" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/fishtank.jpg" alt="Redesigned fish tank card with two hero readouts, a status row and a single Parameters drawer" loading="lazy" width="900" height="562">
               </figure>
             </div>
             <figcaption>One concrete example of "limited overview": the fish-tank screen buried the two readouts operators actually needed inside four data tabs with no hierarchy. The redesign promotes them to hero size and collapses the tabs into one Parameters drawer.</figcaption>
@@ -285,7 +287,7 @@
               <div class="compare">
                 <figure>
                   <span class="tag before">Before · legacy start page</span>
-                  <img src="../assets/img/njord/legacy-start.jpg" alt="Legacy NJORD start page, a grid of identical grey navigation buttons" loading="lazy" width="1440" height="900">
+                  <img src="../assets/img/njord/legacy-start.jpg" alt="Legacy NJORD start page, a grid of identical grey navigation buttons" loading="lazy" width="900" height="562">
                 </figure>
                 <figure>
                   <span class="tag after">After · Dashboard</span>
@@ -339,11 +341,11 @@
               <div class="compare">
                 <figure>
                   <span class="tag before">Before · legacy Pump Sump</span>
-                  <img src="../assets/img/njord/legacy-pumpsump.jpg" alt="Legacy pump sump mimic with saturated green equipment and monochrome pipes" loading="lazy" width="1440" height="900">
+                  <img src="../assets/img/njord/legacy-pumpsump.jpg" alt="Legacy pump sump mimic with saturated green equipment and monochrome pipes" loading="lazy" width="900" height="562">
                 </figure>
                 <figure>
                   <span class="tag after">After · redesigned Pump Sump</span>
-                  <img src="../assets/img/njord/pumpsump.jpg" alt="Redesigned pump sump mimic with neutral equipment states and fluid-coded pipes" loading="lazy" width="1440" height="900">
+                  <img src="../assets/img/njord/pumpsump.jpg" alt="Redesigned pump sump mimic with neutral equipment states and fluid-coded pipes" loading="lazy" width="900" height="562">
                 </figure>
               </div>
               <figcaption>Eleven saturated-green pumps on the left spend colour on "normal." On the right, equipment state is neutral and pipes are tinted by the fluid they carry, so oxygen, process-water and drain circuits separate at a glance, leaving colour free for the one thing that's actually wrong.</figcaption>
@@ -380,21 +382,21 @@
             <div class="compare" style="margin-top:1.5rem;">
               <figure>
                 <span class="tag before">Before · Alarm Statistics</span>
-                <img src="../assets/img/njord/legacy-alarmstats.jpg" alt="Legacy alarm statistics screen with three stacked tab levels and a reversed severity ramp" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/legacy-alarmstats.jpg" alt="Legacy alarm statistics screen with three stacked tab levels and a reversed severity ramp" loading="lazy" width="900" height="562">
               </figure>
               <figure>
                 <span class="tag after">After · Alarm Statistics</span>
-                <img src="../assets/img/njord/alarmstats.jpg" alt="Redesigned alarm statistics page governed by a single time-range control" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/alarmstats.jpg" alt="Redesigned alarm statistics page governed by a single time-range control" loading="lazy" width="900" height="562">
               </figure>
             </div>
             <div class="compare" style="margin-top:1.5rem;">
               <figure>
                 <span class="tag before">Before · Fish Welfare</span>
-                <img src="../assets/img/njord/legacy-welfare.jpg" alt="Legacy welfare data-entry form with all indicators pre-checked and no registration history" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/legacy-welfare.jpg" alt="Legacy welfare data-entry form with all indicators pre-checked and no registration history" loading="lazy" width="900" height="562">
               </figure>
               <figure>
                 <span class="tag after">After · Fish Biology</span>
-                <img src="../assets/img/njord/welfare.jpg" alt="Redesigned fish biology screen with a registration register, mortality and cause of death" loading="lazy" width="1440" height="900">
+                <img src="../assets/img/njord/welfare.jpg" alt="Redesigned fish biology screen with a registration register, mortality and cause of death" loading="lazy" width="900" height="562">
               </figure>
             </div>
             <p class="cs-prose" style="margin-top:1rem; font-size:0.9rem; color:var(--muted);">Alarm Statistics collapsed three stacked tab levels into one page governed by a single time-range control, once it was clear they were one analysis at three ranges rather than three analyses. Fish Biology replaced a blank form with a register (batch, department, tank, author, progress through scoring) because the legacy screen had no memory of what had already been recorded.</p>
